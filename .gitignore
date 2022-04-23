@@ -1,1 +1,3 @@
 venv/
+sql/
+flaskblog/config.py

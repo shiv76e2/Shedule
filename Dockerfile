@@ -31,9 +31,10 @@ ADD flaskblog ./flaskblog
 
 
 #docker run --name sd -it -p 5000:5000 schedule-container
+#exit()
+#restart
 #docker exec -it sd bash
 #uwsgi --ini uwsgi.ini
-#docker run -p 5000:5000 schedule-container uwsgi --ini uwsgi.ini --host 0.0.0.0
 
 
 #Lightsailデプロイ
