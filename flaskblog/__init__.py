@@ -11,7 +11,9 @@ def create_app(config_Class=Config):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     from flaskblog.main.routes import main
+    from flaskblog.rooms.routes import rooms
     app.register_blueprint(main)
+    app.register_blueprint(rooms)
     return app
 
     

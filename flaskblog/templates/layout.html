@@ -23,7 +23,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/schedule">予定</a>
+              <a class="nav-item nav-link" href="{{ url_for('rooms.load') }}">予定</a>
               <a class="nav-item nav-link" href="/reserve">予約する</a>
               <a class="nav-item nav-link" href="/rooms">部屋</a>
             </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
+            <h3>Sidebar</h3>
             <p class='text-muted'>部屋の使用状況を表示する
               <ul class="list-group">
                 <li class="list-group-item list-group-item-light">部屋1</li>
