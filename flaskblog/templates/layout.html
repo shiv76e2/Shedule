@@ -23,7 +23,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('rooms.load') }}">予定</a>
+              <a class="nav-item nav-link" href="/schedule">予定</a>
               <a class="nav-item nav-link" href="/reserve">予約する</a>
               <a class="nav-item nav-link" href="/rooms">部屋</a>
             </div>
@@ -39,6 +39,15 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
           {% block content %}{% endblock %}
         </div>
         <div class="col-md-4">
