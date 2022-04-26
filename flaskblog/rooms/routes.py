@@ -21,3 +21,11 @@ def new_room():
         db.session.commit()
         return redirect(url_for('rooms.load'))
     return render_template('create_room.html', form=form)
+
+@rooms.route('/rooms/delete/<int:room_id>')
+def delete_room(room_id):
+    room = Room.query.get_or_404(room_id)
+    db.session.delete(room)
+    db.session.commit()
+    flash('削除に成功しました。', 'success')
+    return redirect(url_for('rooms.load'))
