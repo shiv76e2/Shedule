@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>登録済みの部屋</h1>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">部屋名</th>
+              <th scope="col">収容人数</th>
+              <th scope="col">作成日</th>
+            </tr>
+        </thead>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.name }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>{{ room.update_time }}</td>
+            </tr>
+        {% endfor%}
+    </table>
+{% endblock content %}
