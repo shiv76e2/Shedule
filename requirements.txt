@@ -6,3 +6,5 @@ Flask-SQLAlchemy
 pymysql
 WTForms
 Flask-WTF
+flask-bcrypt
+email-validator

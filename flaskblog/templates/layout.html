@@ -29,8 +29,9 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="#">Login</a>
-              <a class="nav-item nav-link" href="#">Logout</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.register') }}">登録する</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.login')  }}">ログイン</a>
+              <a class="nav-item nav-link" href="#">ログアウト</a>
             </div>
           </div>
         </div>
