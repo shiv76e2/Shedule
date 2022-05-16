@@ -20,7 +20,9 @@ def create_app(config_Class=Config):
     
     from flaskblog.users.routes import users
     from flaskblog.main.routes import main
+    from flaskblog.rooms.routes import rooms
     app.register_blueprint(main)
+    app.register_blueprint(rooms)
     app.register_blueprint(users)
     return app
 

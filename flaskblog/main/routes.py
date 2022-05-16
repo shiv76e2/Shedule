@@ -16,11 +16,6 @@ def about():
     return render_template('about.html')
 
 
-@main.route('/rooms')
-def rooms():
-    rooms = Room.query.all()
-    return render_template('rooms.html', title='部屋', rooms=rooms)
-
 @main.route('/reserve')
 def reserve():
     return render_template('reserve.html')
