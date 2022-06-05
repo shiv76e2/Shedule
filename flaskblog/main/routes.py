@@ -1,6 +1,5 @@
 from flask import render_template, request, Blueprint
 from flask_login import LoginManager
-from flaskblog.models import Room
 
 main = Blueprint('main', __name__)
 login_manger = LoginManager
