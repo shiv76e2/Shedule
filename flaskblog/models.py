@@ -31,6 +31,8 @@ class Users(db.Model, UserMixin):
     
 class Organizations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    organization_id = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
     name = db.Column(db.String(40), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
@@ -58,6 +60,6 @@ class OrganizationsUsersBelonging(db.Model):
 
 class OrganizationsResourcesOwnership(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.id"), nullable=False)
+    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.organization_id"), nullable=False)
     resource_id = db.Column(db.Integer, db.ForeignKey("resources.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
