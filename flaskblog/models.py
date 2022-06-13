@@ -53,7 +53,7 @@ class Reservations(db.Model):
 
 class OrganizationsUsersBelonging(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.id"), nullable=False)
+    organization_id = db.Column(db.String(30), db.ForeignKey("organizations.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 

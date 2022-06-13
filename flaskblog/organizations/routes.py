@@ -12,11 +12,13 @@ def load():
     if not current_user.is_authenticated:
         return redirect(url_for('main.home'))
     id = int(current_user.get_id())
-    organization = OrganizationsUsersBelonging.query.filter_by(user_id = id).first()
-    if organization == None:
+    belongings = OrganizationsUsersBelonging.query.filter_by(user_id = id)
+    if belongings == None:
         return redirect(url_for('organizations.register'))  
-    #所属TEAMの表示      
-    return redirect(url_for('main.home'))
+    organization_ids = [belonging.organization_id for belonging in belongings]
+    organizations = Organizations.query.filter(Organizations.organization_id.in_(organization_ids))
+    #TODO: TEAM所有者の名前表示     
+    return render_template('teams.html', organizations = organizations)
 
 
 @organizations.route("/organizations/register", methods=['GET', 'POST'])
@@ -34,3 +36,5 @@ def register():
         return redirect(url_for('main.home'))
     #TODO: 一発目に100%  validationに失敗するバグの修正
     return render_template('register/organization_register.html', title="TEAM", form = form)
+
+#TODO: TEAM脱退
