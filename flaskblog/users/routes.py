@@ -19,7 +19,7 @@ def register():
         db.session.commit()
         flash('アカウントの作成が完了しました。', 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register/user_register.html', title='Register', form=form)
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():

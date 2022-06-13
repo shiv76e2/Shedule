@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+    <h1 class="col-md-12" style="margin:30px 0px">所属チーム</h1>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">TEAM</th>
+              <th scope="col">TEAM_ID</th>
+              <th scope="col">管理者</th>
+              <th scope="col"></th>
+            </tr>
+        </thead>
+        {% for organization in organizations %}
+            <tr>
+                <td>{{ organization.name }}</td>
+                <td>{{ organization.organization_id }}</td>
+                <td>{{ organization.owner_id }}</td>
+                <td><a type="button" href="#" class="btn btn-secondary">脱退</a></td>
+                <!-- TODO: 脱退機能 -->
+            </tr>
+        {% endfor%}
+    </table>
+
+    <a type="button" class="btn btn-light col-md-12" href="#">新しいTEAMを作成</a>
+    <a type="button" class="btn btn-light col-md-12" href="#">新しいTEAMに参加</a>
+{% endblock content %}
+
