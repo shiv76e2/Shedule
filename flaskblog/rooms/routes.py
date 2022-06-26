@@ -1,8 +1,9 @@
 from tracemalloc import start
 from flask import redirect, render_template, url_for, flash, request, Blueprint
 from flask_login import current_user
+from sqlalchemy import null
 from flaskblog import db
-from flaskblog.models import Organizations, OrganizationsResourcesOwnership, Resources, OrganizationsUsersBelonging
+from flaskblog.models import Organizations, OrganizationsResourcesOwnership, Reservations, Resources, OrganizationsUsersBelonging
 from flaskblog.rooms.forms import RoomForm
 
 rooms = Blueprint('rooms', __name__)
@@ -10,6 +11,8 @@ rooms = Blueprint('rooms', __name__)
 
 @rooms.route('/rooms')
 def load():
+    if not current_user.is_authenticated:
+        return redirect(url_for('users.login'))
     rooms = Resources.query.all()
     return render_template('rooms.html', title='部屋', rooms=rooms)
 
@@ -40,8 +43,12 @@ def new_room():
 
 @rooms.route('/rooms/delete/<int:room_id>')
 def delete_room(room_id):
-    room = Resources.query.get_or_404(room_id)
-    db.session.delete(room)
+    rooms = Resources.query.get_or_404(room_id)
+    ownerships = OrganizationsResourcesOwnership.query.filter_by(resource_id=room_id).delete()
+    reservasions = Reservations.query.filter_by(resource_id=room_id).delete()
+  
+    db.session.delete(rooms)
     db.session.commit()
+    
     flash('削除に成功しました。', 'success')
     return redirect(url_for('rooms.load'))
