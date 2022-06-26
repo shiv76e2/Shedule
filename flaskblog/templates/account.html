@@ -4,12 +4,13 @@
     <h2>email: {{ current_user.email }}</h2>
    
     <p class='text-muted'>
-        <ul class="list-group">
-          {% if current_user.organizations != null %}
+      <ul class="list-group">
+        <legend>所属:</legend>
+        {% if current_user.organizations != null %}
           {% for organization in organizations %}
-              <li class="list-group-item list-group-item-light">所属: {{ organization.name }}</li>
+              <li class="list-group-item list-group-item-light">{{ organization.name }}</li>
           {% endfor %}  
-      {% endif %}
-        </ul>
-      </p>
+        {% endif %}
+      </ul>
+    </p>
 {% endblock content %}
