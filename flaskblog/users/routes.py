@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request, Blueprint
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flaskblog import db, bcrypt
-from flaskblog.models import Users
+from flaskblog.models import Users, Organizations, OrganizationsUsersBelonging
 from flaskblog.users.forms import RegistrationForm, LoginForm
 
 
@@ -41,3 +41,16 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+@users.route("/account")
+@login_required
+def account():
+    user_id = current_user.id
+    #所属: 
+    belongings = OrganizationsUsersBelonging.query.filter_by(user_id = current_user.id)
+    if belongings == None:
+        return redirect(url_for('organizations.register'))  
+
+    organization_ids = [belonging.organization_id for belonging in belongings]
+    organizations = Organizations.query.filter(Organizations.organization_id.in_(organization_ids))
+    return render_template('account.html', title='アカウント', organizations = organizations)

@@ -22,7 +22,7 @@
         {% endfor%}
     </table>
 
-    <a type="button" class="btn btn-light col-md-12" href="#">新しいTEAMを作成</a>
+    <a type="button" class="btn btn-light col-md-12" href="{{ url_for('organizations.register') }}">新しいTEAMを作成</a>
     <a type="button" class="btn btn-light col-md-12" href="#">新しいTEAMに参加</a>
 {% endblock content %}
 
