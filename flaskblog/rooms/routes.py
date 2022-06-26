@@ -15,12 +15,16 @@ def load():
 @rooms.route('/rooms/new', methods=['GET', 'POST'])
 def new_room():
     form = RoomForm()
+    #POST
     if form.validate_on_submit():
+        #TODO: capacity To SelectedField
         room = Resources(name=form.name.data, capacity=form.capacity.data)
         db.session.add(room)
         db.session.commit()
         flash('Your room has been created!', 'success')
         return redirect(url_for('rooms.load'))
+    #GET
+    #TODO: 部屋の所属を表示
     belongings = OrganizationsUsersBelonging.query.filter_by(user_id = current_user.id)
     if belongings == None:
         return redirect(url_for('organizations.register'))  
