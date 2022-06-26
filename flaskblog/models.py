@@ -60,6 +60,6 @@ class OrganizationsUsersBelonging(db.Model):
 
 class OrganizationsResourcesOwnership(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.organization_id"), nullable=False)
+    organization_id = db.Column(db.String(30), db.ForeignKey("organizations.organization_id"), nullable=False)
     resource_id = db.Column(db.Integer, db.ForeignKey("resources.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
