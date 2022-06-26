@@ -1,6 +1,7 @@
 from flask import redirect, render_template, url_for, flash, request, Blueprint
+from flask_login import current_user
 from flaskblog import db
-from flaskblog.models import Resources
+from flaskblog.models import Organizations, Resources, OrganizationsUsersBelonging
 from flaskblog.rooms.forms import RoomForm
 
 rooms = Blueprint('rooms', __name__)
@@ -20,6 +21,12 @@ def new_room():
         db.session.commit()
         flash('Your room has been created!', 'success')
         return redirect(url_for('rooms.load'))
+    belongings = OrganizationsUsersBelonging.query.filter_by(user_id = current_user.id)
+    if belongings == None:
+        return redirect(url_for('organizations.register'))  
+    organization_ids = [belonging.organization_id for belonging in belongings]
+    organizations = Organizations.query.filter(Organizations.organization_id.in_(organization_ids))
+    form.organization.choices = [(org.id, org.name) for org in organizations]
     return render_template('create_room.html', form=form)
 
 @rooms.route('/rooms/delete/<int:room_id>')
