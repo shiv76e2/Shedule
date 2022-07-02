@@ -14,6 +14,7 @@ class RoomsService:
             2. ResourceDtoを生成。
         '''
 
+
         rooms = Resources.query.join(
             OrganizationsResourcesOwnership, Resources.id==OrganizationsResourcesOwnership.resource_id).join(Organizations, OrganizationsResourcesOwnership.organization_id == Organizations.organization_id).all()
 
