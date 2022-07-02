@@ -7,6 +7,7 @@
             <tr>
               <th scope="col">部屋名</th>
               <th scope="col">収容人数</th>
+              <th scope="col">所有TEAM</th>
               <th scope="col">更新日</th>
               <th scope="col"></th>
             </tr>
@@ -15,6 +16,7 @@
             <tr>
                 <td>{{ room.name }}</td>
                 <td>{{ room.capacity }}</td>
+                <td>{{ room.organizations_resources_ownership[0].organization_id}}</td>
                 <td>{{ room.update_time }}</td>
                 <td><a type="button" href="{{ url_for('rooms.delete_room', room_id = room.id) }}" class="btn btn-secondary">削除</a></td>
             </tr>

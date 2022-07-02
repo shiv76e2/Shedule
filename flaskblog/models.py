@@ -12,7 +12,7 @@ class Resources(db.Model):
     capacity = db.Column(db.Integer, nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 
-    servations = db.relationship("Reservations", backref="resources", lazy=True)
+    reservations = db.relationship("Reservations", backref="resources", lazy=True)
     organizations_resources_ownership = db.relationship("OrganizationsResourcesOwnership", backref="resources", lazy=True)
     
 

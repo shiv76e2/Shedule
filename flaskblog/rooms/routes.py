@@ -1,10 +1,11 @@
 from tracemalloc import start
 from flask import redirect, render_template, url_for, flash, request, Blueprint
 from flask_login import current_user
-from sqlalchemy import null
 from flaskblog import db
 from flaskblog.models import Organizations, OrganizationsResourcesOwnership, Reservations, Resources, OrganizationsUsersBelonging
 from flaskblog.rooms.forms import RoomForm
+from flaskblog.rooms.dtos import ResourceDto
+from flaskblog.rooms.rooms_service import RoomsService
 
 rooms = Blueprint('rooms', __name__)
 
@@ -13,7 +14,17 @@ rooms = Blueprint('rooms', __name__)
 def load():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
-    rooms = Resources.query.all()
+    #FIXME: 部屋の所属を表示
+    """
+    1. 所属している組織
+    OrganizationsUsersBelonging
+    2. 所属している組織に存在する部屋
+    Resources
+    3. 組織名を取得
+    Organizations
+    """
+    rooms = RoomsService.search_available_rooms(current_user.id)
+    
     return render_template('rooms.html', title='部屋', rooms=rooms)
 
 @rooms.route('/rooms/new', methods=['GET', 'POST'])
@@ -32,7 +43,6 @@ def new_room():
         flash('Your room has been created!', 'success')
         return redirect(url_for('rooms.load'))
     #GET
-    #FIXME: 部屋の所属を表示
     belongings = OrganizationsUsersBelonging.query.filter_by(user_id = current_user.id)
     if belongings == None:
         return redirect(url_for('organizations.register'))  
