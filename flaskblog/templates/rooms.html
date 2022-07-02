@@ -17,7 +17,7 @@
                 <td>{{ room.name }}</td>
                 <td>{{ room.capacity }}</td>
                 <!--TODO: [0]を用いた処理削除-->
-                <td>{{ room.organizations_resources_ownership[0].organization_id}}</td>
+                <td>{{ room.organizations_resources_ownership[0].organizations.name}}</td>
                 <td>{{ room.update_time }}</td>
                 <td><a type="button" href="{{ url_for('rooms.delete_room', room_id = room.id) }}" class="btn btn-secondary">削除</a></td>
             </tr>
