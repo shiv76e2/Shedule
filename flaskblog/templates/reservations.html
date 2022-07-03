@@ -6,7 +6,7 @@
         <thead>
             <tr>
               <th scope="col">部屋名</th>
-              <th scope="col">人数</th>
+              <th scope="col">TEAM</th>
               <th scope="col">ユーザー</th>
               <th scope="col">開始時間</th>
               <th scope="col">終了時間</th>
@@ -15,7 +15,7 @@
         {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.resources.name }}</td>
-                <td>{{ reservation.amount }}</td>
+                <td>{{ reservation.resources.organizations_resources_ownership[0].organizations.name }}</td>
                 <td>{{ reservation.users.name }}</td>
                 <td>{{ reservation.start_time}}</td>
                 <td>{{ reservation.end_time}}</td>
