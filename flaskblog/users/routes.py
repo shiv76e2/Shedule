@@ -53,4 +53,4 @@ def account():
 
     organization_ids = [belonging.organization_id for belonging in belongings]
     organizations = Organizations.query.filter(Organizations.organization_id.in_(organization_ids))
-    return render_template('account.html', title='アカウント', organizations = organizations)
+    return render_template('account.html', title='アカウント', organizations = organizations, team_count = len(organizations.all()))

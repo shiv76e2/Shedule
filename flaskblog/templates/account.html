@@ -5,7 +5,7 @@
    
     <p class='text-muted'>
       <ul class="list-group">
-        <legend>所属:</legend>
+        <legend>所属TEAM数: {{ team_count }}</legend>
         {% if current_user.organizations != null %}
           {% for organization in organizations %}
               <li class="list-group-item list-group-item-light">{{ organization.name }}</li>
