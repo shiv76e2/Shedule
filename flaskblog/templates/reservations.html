@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+    <h1 class="col-md-12" style="margin:30px 0px">予約一覧</h1>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">部屋名</th>
+              <th scope="col">人数</th>
+              <th scope="col">ユーザー</th>
+              <th scope="col">開始時間</th>
+              <th scope="col">終了時間</th>
+            </tr>
+        </thead>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.resources.name }}</td>
+                <td>{{ reservation.amount }}</td>
+                <td>{{ reservation.users.name }}</td>
+                <td>{{ reservation.start_time}}</td>
+                <td>{{ reservation.end_time}}</td>
+                <!--TODO: [0]を用いた処理削除-->
+                <!--td>room.organizations_resources_ownership[0].organizations.name</td-->
+            </tr>
+        {% endfor%}
+    </table>
+
+    <a type="button" class="btn btn-light col-md-12" href="{{ url_for('reservations.new_reservation') }}">予約をする</a>
+{% endblock content %}

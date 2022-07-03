@@ -24,7 +24,7 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('organizations.load') }}">TEAM</a>
-              <a class="nav-item nav-link" href="/schedule">予定</a>
+              <a class="nav-item nav-link" href="{{ url_for('reservations.load') }}">予定</a>
               <a class="nav-item nav-link" href="{{ url_for('reservations.new_reservation') }}">予約する</a>
               <a class="nav-item nav-link" href="/rooms">部屋</a>
             </div>
@@ -45,7 +45,7 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 mx-auto">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -57,7 +57,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
+        <!--div class="col-md-4">
           <div class="content-section">
             <h3>Sidebar</h3>
             <p class='text-muted'>部屋の使用状況を表示する
@@ -69,7 +69,7 @@
               </ul>
             </p>
           </div>
-        </div>
+        </div-->
       </div>
     </main>
 
