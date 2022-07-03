@@ -12,7 +12,7 @@ class Resources(db.Model):
     capacity = db.Column(db.Integer, nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 
-    servations = db.relationship("Reservations", backref="resources", lazy=True)
+    reservations = db.relationship("Reservations", backref="resources", lazy=True)
     organizations_resources_ownership = db.relationship("OrganizationsResourcesOwnership", backref="resources", lazy=True)
     
 
@@ -37,7 +37,7 @@ class Organizations(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 
-    organizations_users_ownership = db.relationship("OrganizationsUsersBelonging", backref="organizations", lazy=True)
+    organizations_users_belonging = db.relationship("OrganizationsUsersBelonging", backref="organizations", lazy=True)
     organizations_resources_ownership = db.relationship("OrganizationsResourcesOwnership", backref="organizations", lazy=True)
 
 
@@ -60,6 +60,6 @@ class OrganizationsUsersBelonging(db.Model):
 
 class OrganizationsResourcesOwnership(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.organization_id"), nullable=False)
+    organization_id = db.Column(db.String(30), db.ForeignKey("organizations.organization_id"), nullable=False)
     resource_id = db.Column(db.Integer, db.ForeignKey("resources.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
