@@ -1,4 +1,3 @@
-from tracemalloc import start
 from flask import redirect, render_template, url_for, flash, request, Blueprint
 from flask_login import current_user
 from flaskblog import db
