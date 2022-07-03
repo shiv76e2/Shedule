@@ -16,7 +16,11 @@ class RoomsService:
 
 
         rooms = Resources.query.join(
-            OrganizationsResourcesOwnership, Resources.id==OrganizationsResourcesOwnership.resource_id).join(Organizations, OrganizationsResourcesOwnership.organization_id == Organizations.organization_id).all()
+            OrganizationsResourcesOwnership, Resources.id==OrganizationsResourcesOwnership.resource_id)\
+                .join(Organizations, OrganizationsResourcesOwnership.organization_id == Organizations.organization_id)\
+                .join(OrganizationsUsersBelonging, Organizations.organization_id == OrganizationsUsersBelonging.organization_id)\
+                .filter(OrganizationsUsersBelonging.user_id == user_id)\
+                .all()
 
         return rooms
 

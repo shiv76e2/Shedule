@@ -37,7 +37,7 @@ class Organizations(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 
-    organizations_users_ownership = db.relationship("OrganizationsUsersBelonging", backref="organizations", lazy=True)
+    organizations_users_belonging = db.relationship("OrganizationsUsersBelonging", backref="organizations", lazy=True)
     organizations_resources_ownership = db.relationship("OrganizationsResourcesOwnership", backref="organizations", lazy=True)
 
 
