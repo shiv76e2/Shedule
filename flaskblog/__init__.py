@@ -22,10 +22,12 @@ def create_app(config_Class=Config):
     from flaskblog.main.routes import main
     from flaskblog.rooms.routes import rooms
     from flaskblog.organizations.routes import organizations
+    from flaskblog.reservations.routes import reservations
     app.register_blueprint(main)
     app.register_blueprint(rooms)
     app.register_blueprint(users)
     app.register_blueprint(organizations)
+    app.register_blueprint(reservations)
     return app
 
     
