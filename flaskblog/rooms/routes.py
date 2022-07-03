@@ -14,17 +14,7 @@ rooms = Blueprint('rooms', __name__)
 def load():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
-    #FIXME: 部屋の所属を表示
-    """
-    1. 所属している組織
-    OrganizationsUsersBelonging
-    2. 所属している組織に存在する部屋
-    Resources
-    3. 組織名を取得
-    Organizations
-    """
     rooms = RoomsService.search_available_rooms(current_user.id)
-    
     return render_template('rooms.html', title='部屋', rooms=rooms)
 
 @rooms.route('/rooms/new', methods=['GET', 'POST'])
