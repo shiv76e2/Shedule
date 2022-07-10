@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from flaskblog import db, bcrypt
 from flaskblog.organizations.forms import OrganizationRegistrationForm
-from flaskblog.models import Organizations, OrganizationsUsersBelonging
+from flaskblog.models import Organizations, OrganizationsUsersBelonging, Users
 
 
 organizations = Blueprint('organizations', __name__)
@@ -16,8 +16,13 @@ def load():
     if belongings == None:
         return redirect(url_for('organizations.register'))  
     organization_ids = [belonging.organization_id for belonging in belongings]
-    organizations = Organizations.query.filter(Organizations.organization_id.in_(organization_ids))
+    organizations = Organizations.query\
+                                                .filter(Organizations.organization_id.in_(organization_ids))\
+                                                .join(Users, Organizations.owner_id == Users.id)\
+                                                .all()
     #TODO: TEAM所有者の名前表示     
+    
+    
     return render_template('teams.html', organizations = organizations)
 
 
@@ -34,7 +39,6 @@ def register():
         db.session.commit()
         flash('TEAMの作成が完了しました。', 'success')
         return redirect(url_for('main.home'))
-    #TODO: 一発目に100%  validationに失敗するバグの修正
     return render_template('register/organization_register.html', title="TEAM", form = form)
 
 #TODO: TEAM脱退
