@@ -43,8 +43,8 @@ def new_room():
 @rooms.route('/rooms/delete/<int:room_id>')
 def delete_room(room_id):
     rooms = Resources.query.get_or_404(room_id)
-    ownerships = OrganizationsResourcesOwnership.query.filter_by(resource_id=room_id).delete()
-    reservasions = Reservations.query.filter_by(resource_id=room_id).delete()
+    OrganizationsResourcesOwnership.query.filter_by(resource_id=room_id).delete()
+    Reservations.query.filter_by(resource_id=room_id).delete()
   
     db.session.delete(rooms)
     db.session.commit()

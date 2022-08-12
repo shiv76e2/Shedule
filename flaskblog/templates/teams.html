@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    
+     
     <h1 class="col-md-12" style="margin:30px 0px">所属チーム</h1>
     <table class="table">
         <thead>
@@ -16,7 +16,7 @@
                 <td>{{ organization.name }}</td>
                 <td>{{ organization.organization_id }}</td>
                 <td>{{ organization.users.name }}</td>
-                <td><a type="button" href="#" class="btn btn-secondary">脱退</a></td>
+                <td><a type="button"  href="{{ url_for('organizations.leave', organization_id = organization.id) }}" class="btn btn-secondary">脱退</a></td>
                 <!-- FIXME: 脱退機能 -->
             </tr>
         {% endfor%}
