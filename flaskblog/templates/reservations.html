@@ -1,6 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-    
+    <div id="calendar" class="col-md-12"></div>
+    <script>
+        let calendarEl = document.getElementById('calendar');
+
+        let calendar = new FullCalendar.Calendar(calendarEl, 
+        {
+            locale: 'ja',
+            events: [
+            {% for event in events %}
+            {
+                title: '{{ event.title }}',
+                start: '{{ event.date }}'
+            },
+            {% endfor %}
+            ]
+        });
+
+        calendar.render();
+    </script>
     <h1 class="col-md-12" style="margin:30px 0px">予約一覧</h1>
     <table class="table">
         <thead>

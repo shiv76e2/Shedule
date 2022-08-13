@@ -17,7 +17,8 @@ def load():
         .join(OrganizationsUsersBelonging, OrganizationsResourcesOwnership.organization_id == OrganizationsUsersBelonging.organization_id)\
         .filter(OrganizationsUsersBelonging.user_id == current_user.id)\
         .all()
-    return render_template('reservations.html', reservations = reservations)    
+    events = [{'title': i.resources.name, 'date' : i.start_time} for i in reservations]
+    return render_template('reservations.html', reservations = reservations, events = events)    
 
 
 @reservations.route('/reservations/new', methods=['GET', 'POST'])
