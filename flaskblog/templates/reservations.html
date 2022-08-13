@@ -1,11 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div id="calendar"></div>
+    <div id="calendar" class="col-md-12"></div>
     <script>
         let calendarEl = document.getElementById('calendar');
 
         let calendar = new FullCalendar.Calendar(calendarEl, 
         {
+            locale: 'ja',
+            events: [
+            {% for event in events %}
+            {
+                title: '{{ event.title }}',
+                start: '{{ event.date }}'
+            },
+            {% endfor %}
+            ]
         });
 
         calendar.render();
