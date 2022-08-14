@@ -42,11 +42,10 @@ def register():
     return render_template('register/organization_register.html', title="TEAM", form = form)
 
 #TODO: TEAM脱退
-
-
-@organizations.route("/organizations/leave/<int:organization_id>")
+@organizations.route("/organizations/leave/<string:organization_id>")
 def leave(organization_id):
-    organization = Organizations.query.get_or_404(organization_id)
+    #TODO: get_or_404
+    #organization = Organizations.query.get_or_404(organization_id)
     #mappingを消す
     OrganizationsUsersBelonging.query.filter_by(organization_id = organization_id)\
                                                         .filter_by(user_id = current_user.id)\

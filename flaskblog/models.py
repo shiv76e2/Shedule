@@ -30,6 +30,7 @@ class Users(db.Model, UserMixin):
 
     
 class Organizations(db.Model):
+    #TODO: id削除
     id = db.Column(db.Integer, primary_key=True)
     organization_id = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(60), nullable=False)
@@ -53,7 +54,7 @@ class Reservations(db.Model):
 
 class OrganizationsUsersBelonging(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    organization_id = db.Column(db.String(30), db.ForeignKey("organizations.id"), nullable=False)
+    organization_id = db.Column(db.String(30), db.ForeignKey("organizations.organization_id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
 
