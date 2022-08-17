@@ -19,3 +19,9 @@ class OrganizationRegistrationForm(FlaskForm):
         if user:
             raise ValidationError('That id is taken. Please choose a different one.')
     
+class JoinOrganizationForm(FlaskForm):
+    organization_id = StringField('TEAM_ID', 
+                                    validators=[DataRequired(), Regexp('^[0-9a-zA-Z]*$', 0, "半角英数で入力"), Length(min=2, max=30)])
+    password = PasswordField('参加パスワード', 
+                            validators=[DataRequired()])
+    submit = SubmitField('参加')

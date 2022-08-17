@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from flaskblog import db, bcrypt
-from flaskblog.organizations.forms import OrganizationRegistrationForm
+from flaskblog.organizations.forms import OrganizationRegistrationForm, JoinOrganizationForm
 from flaskblog.models import Organizations, OrganizationsUsersBelonging, Users
 
 
@@ -38,7 +38,7 @@ def register():
         db.session.add(belonging)
         db.session.commit()
         flash('TEAMの作成が完了しました。', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('organizations.load'))
     return render_template('register/organization_register.html', title="TEAM", form = form)
 
 #TODO: TEAM脱退
@@ -54,7 +54,21 @@ def leave(organization_id):
     flash('TEAMを脱退しました。', 'success')
     return(redirect(url_for('organizations.load')))
 
+
+
+
 @organizations.route('/organizations/search', methods=['GET', 'POST'])
 def search():
-    return render_template('search_organization_form.html', title="TEAM")
+    form = JoinOrganizationForm()
+    organization = Organizations.query.filter_by(organization_id=form.organization_id.data).first()
+    if form.validate_on_submit():
+        if organization and bcrypt.check_password_hash(organization.password, form.password.data):
+            belonging = OrganizationsUsersBelonging(organization_id=form.organization_id.data, user_id=current_user.id)
+            db.session.add(belonging)
+            db.session.commit()
+            flash('TEAMに参加しました', 'success')
+            return redirect(url_for('organizations.load'))
+        else:
+            flash('IDまたはパスワードが間違っています', 'danger')
+    return render_template('search_organization_form.html', title="TEAM", form=form)
 
