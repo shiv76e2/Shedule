@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from flaskblog import db, bcrypt
-from flaskblog.organizations.forms import OrganizationRegistrationForm
+from flaskblog.organizations.forms import OrganizationRegistrationForm, JoinOrganizationForm
 from flaskblog.models import Organizations, OrganizationsUsersBelonging, Users
 
 
@@ -38,20 +38,37 @@ def register():
         db.session.add(belonging)
         db.session.commit()
         flash('TEAMの作成が完了しました。', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('organizations.load'))
     return render_template('register/organization_register.html', title="TEAM", form = form)
 
 #TODO: TEAM脱退
-
-
-@organizations.route("/organizations/leave/<int:organization_id>")
+@organizations.route("/organizations/leave/<string:organization_id>")
 def leave(organization_id):
-    organization = Organizations.query.get_or_404(organization_id)
+    #TODO: get_or_404
+    #organization = Organizations.query.get_or_404(organization_id)
     #mappingを消す
     OrganizationsUsersBelonging.query.filter_by(organization_id = organization_id)\
                                                         .filter_by(user_id = current_user.id)\
                                                         .delete()
     db.session.commit()
-
     flash('TEAMを脱退しました。', 'success')
     return(redirect(url_for('organizations.load')))
+
+
+
+
+@organizations.route('/organizations/search', methods=['GET', 'POST'])
+def search():
+    form = JoinOrganizationForm()
+    organization = Organizations.query.filter_by(organization_id=form.organization_id.data).first()
+    if form.validate_on_submit():
+        if organization and bcrypt.check_password_hash(organization.password, form.password.data):
+            belonging = OrganizationsUsersBelonging(organization_id=form.organization_id.data, user_id=current_user.id)
+            db.session.add(belonging)
+            db.session.commit()
+            flash('TEAMに参加しました', 'success')
+            return redirect(url_for('organizations.load'))
+        else:
+            flash('IDまたはパスワードが間違っています', 'danger')
+    return render_template('search_organization_form.html', title="TEAM", form=form)
+
