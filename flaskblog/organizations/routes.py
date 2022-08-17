@@ -51,6 +51,10 @@ def leave(organization_id):
                                                         .filter_by(user_id = current_user.id)\
                                                         .delete()
     db.session.commit()
-
     flash('TEAMを脱退しました。', 'success')
     return(redirect(url_for('organizations.load')))
+
+@organizations.route('/organizations/search', methods=['GET', 'POST'])
+def search():
+    return render_template('search_organization_form.html', title="TEAM")
+

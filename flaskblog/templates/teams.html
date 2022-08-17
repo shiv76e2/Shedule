@@ -23,6 +23,6 @@
     </table>
 
     <a type="button" class="btn btn-light col-md-12" href="{{ url_for('organizations.register') }}">新しいTEAMを作成</a>
-    <a type="button" class="btn btn-light col-md-12" href="#">既存のTEAMに参加</a>
+    <a type="button" class="btn btn-light col-md-12" href="{{ url_for('organizations.search') }}">既存のTEAMに参加</a>
 {% endblock content %}
 
